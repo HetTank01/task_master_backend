@@ -9,7 +9,7 @@ const startServer = async () => {
     try {
         await sequelize.authenticate();
         console.log("Database connected!");
-        await sequelize.sync({ alter: true });
+        // await sequelize.sync({ alter: true });
 
         swagger(app);
 
