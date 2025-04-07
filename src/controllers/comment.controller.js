@@ -72,7 +72,7 @@ class CommentController {
 
     delete = asyncHandler(async (req, res) => {
         const { id } = req.params
-        const { CardMasterId } = req.query
+        const { CardMasterId, parentCommentId } = req.query
 
         const isCardExist = await CardMaster.findByPk(CardMasterId)
 
@@ -92,6 +92,10 @@ class CommentController {
             })
         }
 
+        // remove the child comments if parent comment found
+        const comments = await CommentMaster.findAll({ where: { ParentId: isCommentExist.id } })
+
+        await Promise.all(comments.map((comment) => comment.destroy()))
         await isCommentExist.destroy()
 
         sendResponse(res, {

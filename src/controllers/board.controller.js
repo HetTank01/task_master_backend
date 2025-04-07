@@ -2,7 +2,6 @@ import { Op } from "sequelize";
 import { asyncHandler } from "../middlewares/asyncHandler.js";
 import { verifyToken } from "../middlewares/auth.js";
 import BoardMaster from "../models/BoardMaster.js";
-import BoardUser from "../models/BoardUser.js";
 import CardMaster from "../models/CardMaster.js";
 import ListMaster from "../models/ListMaster.js";
 import UserMaster from "../models/UserMaster.js";

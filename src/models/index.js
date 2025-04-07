@@ -1,5 +1,4 @@
 import BoardMaster from "./BoardMaster.js";
-import BoardUser from "./BoardUser.js";
 import CardMaster from "./CardMaster.js";
 import CommentMaster from "./CommentMaster.js";
 import ListMaster from "./ListMaster.js";
