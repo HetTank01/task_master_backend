@@ -24,6 +24,11 @@ export default (app, server) => {
             console.log("added list", data)
             socket.broadcast.emit("list:added", data) // see the updated data emitted to other users
         })
+
+        socket.on("comment:add", (data) => {
+            console.log("Comment Added", data)
+            socket.broadcast.emit("comment:added", data)
+        })
     })
 
     app.use(express.json());
