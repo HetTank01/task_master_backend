@@ -38,15 +38,3 @@ Table cards {
 
   Foreign Key (list_id) References lists(id) ON DELETE CASCADE
 }
-
-Table board_users {
-  id int [primary key, auto increment]
-  role enum('owner','editor','viewer') [not null]
-  board_id int [not null, index]
-  user_id int [not null, index]
-  created_at timestamp [default: current_timestamp]
-  updated_at timestamp [default: current_timestamp]
-
-  Foreign Key (board_id) References boards(id) ON DELETE CASCADE
-  Foreign Key (user_id) References users(id) ON DELETE CASCADE
-}

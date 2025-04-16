@@ -6,30 +6,35 @@ import bcrypt from "bcrypt"
 
 class AuthController {
     register = asyncHandler(async (req, res) => {
-        const isUserExist = await UserMaster.findOne({ where: { email: req.body.email } })
-
+        const isUserExist = await UserMaster.findOne({ where: { email: req.body.email } });
+    
         if (isUserExist) {
             return sendResponse(res, {
                 statusCode: 400,
-                message: "Email Already Exist"
-            })
+                message: "Email Already Exist",
+            });
         }
 
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-
-        const body = {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    
+        const user = await UserMaster.create({
             ...req.body,
             password: hashedPassword,
-        }
+        });
 
-        const user = await UserMaster.create(body)
+        const token = generateToken(user);
 
         sendResponse(res, {
             statusCode: 201,
-            data: user,
-            message: "User Registered Successfully"
-        })
-    })
+            data: {
+                id: user.id,
+                email: user.email,
+                token: token,
+            },
+            message: "User Registered and Logged In Successfully",
+        });
+    });
+    
 
     login = asyncHandler(async (req, res) => {
         const isUserExist = await UserMaster.findOne({ where: { email: req.body.email } })
